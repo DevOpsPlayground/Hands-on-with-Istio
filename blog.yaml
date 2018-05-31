@@ -1,0 +1,109 @@
+##################################################################################################
+# BlogPage
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: blogpage
+  labels:
+    app: blogpage
+spec:
+  ports:
+  - port: 5000
+    name: http
+  selector:
+    app: blogpage
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: blogpage-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: blogpage
+        version: v1
+    spec:
+      containers:
+      - name: blogpage
+        image: thiv17/blog-service:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: blogpage-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: blogpage
+        version: v2
+    spec:
+      containers:
+      - name: blogpage
+        image: thiv17/blog-service:v2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+---
+##################################################################################################
+# BPI 
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: bpi
+  labels:
+    app: bpi
+spec:
+  ports:
+  - port: 5000
+    name: http
+    nodePort: 31000
+  selector:
+    app: bpi
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: bpi-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bpi
+        version: v1
+    spec:
+      containers:
+      - name: bpi
+        image: thiv17/bpi-service:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+---
+##################################################################################################
+# Ingress resource (gateway)
+##################################################################################################
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gateway
+  annotations:
+    kubernetes.io/ingress.class: "istio"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /.*
+        backend:
+          serviceName: blogpage
+          servicePort: 5000
+---

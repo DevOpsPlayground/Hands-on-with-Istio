@@ -17,7 +17,6 @@ Key capabilities of Istio:
 - Canary releases
 - Failure handling
 - Fault injection
-- Organisation policies between services.
 
 All without changes to application code!
 
@@ -491,33 +490,3 @@ While forwarding the request to the destination Istio can inject either delays o
 4. `istioctl create -f ratings-abort.yaml`
 
 5. View the product page and the ratings service should display that it is currently unavailable. 
-
-## Task 7: Challenge: Focused failure for a user.
-
-  Try and combine Task 6 and Task 7 to come up with a routing rule that only sends a httpFault when logged in as the user `jason`
-
-  Solution:
-  ```
-  apiVersion: config.istio.io/v1alpha2
-  kind: RouteRule
-  metadata:
-    name: ratings-user-abort
-    namespace: default
-    ...
-  spec:
-    destination:
-      name: ratings
-    httpFault:
-      abort:
-        httpStatus: 400
-        percent: 100
-    match:
-      request:
-        headers:
-          cookie:
-            regex: ^(.*?;)?(user=jason)(;.*)?$
-    precedence: 2
-    route:
-    - labels:
-      version: v1
-  ```

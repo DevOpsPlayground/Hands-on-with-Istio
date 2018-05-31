@@ -1,0 +1,14 @@
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: ratings-abort
+spec:
+  destination:
+    name: ratings
+  route:
+  - labels:
+      version: v1
+  httpFault:
+    abort:
+      percent: 100
+      httpStatus: 400
