@@ -266,7 +266,7 @@ We're going to create the following objects:
           nodePort: 32458
       ```
 
-      This port can also be seen mapped to port 80 using the following command: 
+      This port can also be seen mapped using the following command: 
       
       `kubectl get service istio-ingress --namespace istio-system`
 
