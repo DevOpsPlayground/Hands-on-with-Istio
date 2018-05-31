@@ -1,6 +1,7 @@
 
 # DevOps Playground 22 - Hands on with Istio!
-![](images/istio.jpg)
+
+![](images/Istio.jpg)
 
 ## What is Istio?
 
