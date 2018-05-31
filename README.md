@@ -1,6 +1,8 @@
 
 # DevOps Playground 22 - Hands on with Istio!
 
+https://bit.ly/2J1MVBD
+
 ![](images/Istio.jpg)
 
 ## What is Istio?
