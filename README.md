@@ -3,6 +3,8 @@
 
 https://bit.ly/2J1MVBD
 
+Name: Thivan Visvanathan Role: DevOps And Continuous Delivery Consultant Email: thivan.visvanathan@ecs-digital.co.uk Linkedin: https://www.linkedin.com/in/thivan-visvanathan
+
 ![](images/Istio.jpg)
 
 ## What is Istio?
